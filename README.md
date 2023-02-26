@@ -1,5 +1,7 @@
 # plex-auto-delete
 
+[![Python Test and Lint](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml/badge.svg)](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml)
+
 ## Installation
 
 To run this project, you will need to have Python 3.9.2 installed on your system. If you do not have Python 3.9.2 installed, please follow the instructions to install it from the Python website.
