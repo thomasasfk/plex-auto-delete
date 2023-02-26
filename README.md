@@ -40,6 +40,14 @@ You can run the script using the following command:
 python main.py --url <PLEX_URL> --token <PLEX_TOKEN> --days <DAYS_TO_KEEP>
 ```
 
+## Tests
+
+To run tests for the project, simply run:
+
+```bash
+pytest
+```
+
 ## Installing pre-commit hooks
 This project uses pre-commit hooks to ensure that the code meets certain standards before committing it. To install the pre-commit hooks, activate your virtual environment and run the following command:
 
