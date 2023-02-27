@@ -19,15 +19,9 @@ It is recommended that you use a virtual environment to manage the project's dep
 python -m venv myenv
 ```
 
-Replace myenv with the name you want to give your virtual environment. Once your virtual environment is created, activate it using the following command depending on your operating system:
+Replace myenv with the name you want to give your virtual environment.
 
-### On Windows
-
-```bash
-source myenv/bin/activate
-```
-
-### On Unix or Linux
+Once your virtual environment is created, activate it using the following command:
 
 ```bash
 source myenv/bin/activate
