@@ -1,4 +1,4 @@
-# plex-auto-delete  [![Python Lint](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml/badge.svg)](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml)
+# plex-auto-delete  [![Python Lint](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml/badge.svg?branch=main)](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml)
 
 Ah, the joys of managing a Plex server! It's like herding cats, but instead of cats, it's a bunch of lazy humans who can't be bothered to clean up after themselves.
 
