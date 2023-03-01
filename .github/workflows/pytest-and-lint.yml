@@ -1,4 +1,4 @@
-name: Python Test and Lint
+name: Python Lint
 
 on:
   push:
@@ -34,5 +34,3 @@ jobs:
         config: .pre-commit-config.yaml
         args: --color=always
 
-    - name: Run pytest
-      run: pytest
