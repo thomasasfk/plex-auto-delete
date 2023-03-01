@@ -1,6 +1,13 @@
-# plex-auto-delete
+# plex-auto-delete  [![Python Test and Lint](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml/badge.svg)](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml)
 
-[![Python Test and Lint](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml/badge.svg)](https://github.com/thomasasfk/plex-auto-delete/actions/workflows/pytest-and-lint.yml)
+Ah, the joys of managing a Plex server! It's like herding cats, but instead of cats, it's a bunch of lazy humans who can't be bothered to clean up after themselves.
+
+Introducing "plex-auto-delete" (because apparently hitting the shift key to capitalize letters is too much effort for some people). This magical piece of software will take care of the dirty work for you, because let's face it, we can't rely on our users to do it themselves.
+
+Say goodbye to the days of begging and pleading with people to clean up their files. With "plex-auto-delete", you won't even have to lift a finger! And hey, who needs free space on their server, am I right? Let's just keep hoarding all of our old, unused files like they're precious treasures.
+
+But seriously, folks, let's give a round of applause to all the lazy users out there who just can't seem to hit the delete button. You're the reason why we had to create this project in the first place. Thanks for nothing!
+
 
 ## Installation
 
@@ -12,15 +19,9 @@ It is recommended that you use a virtual environment to manage the project's dep
 python -m venv myenv
 ```
 
-Replace myenv with the name you want to give your virtual environment. Once your virtual environment is created, activate it using the following command depending on your operating system:
+Replace myenv with the name you want to give your virtual environment.
 
-### On Windows
-
-```bash
-source myenv/bin/activate
-```
-
-### On Unix or Linux
+Once your virtual environment is created, activate it using the following command:
 
 ```bash
 source myenv/bin/activate
