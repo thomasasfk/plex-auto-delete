@@ -35,19 +35,25 @@ pip install -r requirements.txt
 
 ## Running
 
+Set the following environment variables:
+
+```bash
+DAYS_SINCE_TOUCHED=
+PLEX_URL=
+PLEX_TOKEN=
+RU_TORRENT_RPC_URL=
+```
+
 You can run the script using the following command:
 
 ```bash
-python main.py --url <PLEX_URL> --token <PLEX_TOKEN> --days <DAYS_TO_KEEP>
+python main.py
 ```
 
-## Tests
-
-To run tests for the project, simply run:
-
+Or run on a cronjob:
 ```bash
-pytest
-```
+0 0 * * * cd  ~/path/to/plex-auto-delete && .venv/bin/python main.py
+````
 
 ## Installing pre-commit hooks
 This project uses pre-commit hooks to ensure that the code meets certain standards before committing it. To install the pre-commit hooks, activate your virtual environment and run the following command:
