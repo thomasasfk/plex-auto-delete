@@ -95,7 +95,7 @@ def main() -> int:
 
         torrent_filepath_set = _filepath_set(torrent_base_path)
         if not torrent_filepath_set:
-            print(f"Check this torrent\'s files: {torrent_name}")
+            print(f"Check this torrent's files: {torrent_name}")
             continue
 
         torrent_fileset = {
@@ -128,7 +128,7 @@ def main() -> int:
             if filepath in unexpired_filepath_set:
                 continue
 
-            os.remove(os.path.join(root, filename))
+            os.remove(filepath)
             print(f'Removed by clean-up: {filename}')
 
     return 0
