@@ -85,7 +85,6 @@ def main() -> int:
     for torrent_hash in torrent_hashes:
         torrent_name = ru_torrent.d.name(torrent_hash)
         if str.casefold(torrent_hash) in EXCLUDED_HASHES:
-            print(f'Skipping from torrent checks: {torrent_name}')
             continue
 
         torrent_base_path = ru_torrent.d.base_path(torrent_hash)
@@ -102,7 +101,6 @@ def main() -> int:
             str.casefold(os.path.basename(f)) for f in torrent_filepath_set
         }
         if torrent_fileset & unexpired_fileset:
-            print(f'Skipping torrent, unexpired files: {torrent_name}')
             unexpired_filepath_set |= torrent_filepath_set
             continue
 
@@ -118,7 +116,6 @@ def main() -> int:
     for root, _, files in os.walk(ru_torrent_base_path):
         for filename in files:
             if str.casefold(filename) in EXCLUDED_FILENAMES:
-                print(f'Skipping from clean-up: {filename}')
                 continue
 
             if filename in unexpired_fileset:
