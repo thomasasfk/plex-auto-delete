@@ -7,7 +7,7 @@ To run this project, you will need to have Python 3.9.2 installed on your system
 It is recommended that you use a virtual environment to manage the project's dependencies. To create a virtual environment, run the following command:
 
 ```bash
-python -m venv myenv
+python -m venv .venv
 ```
 
 Replace myenv with the name you want to give your virtual environment.
@@ -15,7 +15,7 @@ Replace myenv with the name you want to give your virtual environment.
 Once your virtual environment is created, activate it using the following command:
 
 ```bash
-source myenv/bin/activate
+source .venv/bin/activate
 ```
 
 Once your virtual environment is activated, install the project's dependencies using the following command:
@@ -26,7 +26,11 @@ pip install -r requirements.txt
 
 ## Running
 
-Set the following environment variables:
+Copy the `.env` file & fill in the variables:
+
+```bash
+cp .env.example .env
+```
 
 ```bash
 DAYS_SINCE_TOUCHED=
