@@ -2,3 +2,4 @@ PlexAPI
 pre-commit
 pytest
 requests
+python-dotenv

@@ -6,24 +6,28 @@ import shutil
 import xmlrpc.client
 from datetime import datetime
 
+from dotenv import load_dotenv  # noqa
 from plexapi.server import PlexServer
 from plexapi.video import Movie
 from plexapi.video import Show
+load_dotenv()
 
-RU_TORRENT_DATA_DIR_PATH = '/media/sdp1/fizz/private/rtorrent/data/'
-
-EXCLUDED_HASHES = {
+_RU_TORRENT_DATA_DIR_PATH = '/media/sdp1/fizz/private/rtorrent/data/'
+_EXCLUDED_HASHES = {
     str.casefold(h) for h in [
         # Add any torrent hashes to exclude
     ]
 }
-
-EXCLUDED_FILENAMES = {
+_EXCLUDED_FILENAMES = {
     str.casefold(fn) for fn in [
         # Add any filenames to exclude
         'Surveillance Camera Man Surveillance Camera Man 1-8 mP5ZVPwP7bg 22.mp4', # noqa
     ]
 }
+_DAYS_SINCE_TOUCHED = int(os.getenv('DAYS_SINCE_TOUCHED', '30'))
+_PLEX_URL = os.getenv('PLEX_URL')
+_PLEX_TOKEN = os.getenv('PLEX_TOKEN')
+_RU_TORRENT_RPC_URL = os.getenv('RU_TORRENT_RPC_URL')
 
 
 def _get_unexpired_filenames(plex, days):
@@ -68,27 +72,22 @@ def _filepath_set(base_path):
 
 
 def main() -> int:
-    DAYS_SINCE_TOUCHED = int(os.getenv('DAYS_SINCE_TOUCHED', '30'))
-    PLEX_URL = os.getenv('PLEX_URL')
-    PLEX_TOKEN = os.getenv('PLEX_TOKEN')
-    RU_TORRENT_RPC_URL = os.getenv('RU_TORRENT_RPC_URL')
-
-    if not all([PLEX_URL, PLEX_TOKEN, RU_TORRENT_RPC_URL]):
+    if not all([_PLEX_URL, _PLEX_TOKEN, _RU_TORRENT_RPC_URL]):
         raise ValueError('Missing environment variable... check the script.')
 
-    plex = PlexServer(PLEX_URL, PLEX_TOKEN)
-    unexpired_fileset = _get_unexpired_filenames(plex, DAYS_SINCE_TOUCHED)
+    plex = PlexServer(_PLEX_URL, _PLEX_TOKEN)
+    unexpired_fileset = _get_unexpired_filenames(plex, _DAYS_SINCE_TOUCHED)
     unexpired_filepath_set = set()
 
-    ru_torrent = xmlrpc.client.ServerProxy(RU_TORRENT_RPC_URL)
+    ru_torrent = xmlrpc.client.ServerProxy(_RU_TORRENT_RPC_URL)
     torrent_hashes = set(ru_torrent.download_list('', 'main'))
     for torrent_hash in torrent_hashes:
         torrent_name = ru_torrent.d.name(torrent_hash)
-        if str.casefold(torrent_hash) in EXCLUDED_HASHES:
+        if str.casefold(torrent_hash) in _EXCLUDED_HASHES:
             continue
 
         torrent_base_path = ru_torrent.d.base_path(torrent_hash)
-        if not torrent_base_path.startswith(RU_TORRENT_DATA_DIR_PATH):
+        if not torrent_base_path.startswith(_RU_TORRENT_DATA_DIR_PATH):
             print(f"Check this torrent's path: {torrent_name}")
             continue
 
@@ -115,7 +114,7 @@ def main() -> int:
     ru_torrent_base_path = ru_torrent.directory.default()
     for root, _, files in os.walk(ru_torrent_base_path):
         for filename in files:
-            if str.casefold(filename) in EXCLUDED_FILENAMES:
+            if str.casefold(filename) in _EXCLUDED_FILENAMES:
                 continue
 
             if filename in unexpired_fileset:
