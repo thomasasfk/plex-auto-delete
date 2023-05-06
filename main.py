@@ -10,6 +10,7 @@ from dotenv import load_dotenv  # noqa
 from plexapi.server import PlexServer
 from plexapi.video import Movie
 from plexapi.video import Show
+
 load_dotenv()
 
 _LOG_FILE_NAME = 'plex_delete_events.log'
@@ -22,7 +23,7 @@ _EXCLUDED_HASHES = {
 _EXCLUDED_FILENAMES = {
     str.casefold(fn) for fn in [
         # Add any filenames to exclude
-        'Surveillance Camera Man Surveillance Camera Man 1-8 mP5ZVPwP7bg 22.mp4', # noqa
+        'Surveillance Camera Man Surveillance Camera Man 1-8 mP5ZVPwP7bg 22.mp4',  # noqa
     ]
 }
 _DAYS_SINCE_TOUCHED = int(os.getenv('DAYS_SINCE_TOUCHED', '30'))
@@ -30,14 +31,17 @@ _PLEX_URL = os.getenv('PLEX_URL')
 _PLEX_TOKEN = os.getenv('PLEX_TOKEN')
 _RU_TORRENT_RPC_URL = os.getenv('RU_TORRENT_RPC_URL')
 
+
 def get_current_utc_timestamp():
-	return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+
 
 def log_and_print(message):
-	print(message)
-	with open(_LOG_FILE_NAME, 'a', encoding='utf-8') as f:
-		f.write(f'[{get_current_utc_timestamp()} UTC] {message}\n')
-                
+    print(message)
+    with open(_LOG_FILE_NAME, 'a', encoding='utf-8') as f:
+        f.write(f'[{get_current_utc_timestamp()} UTC] {message}\n')
+
+
 def _get_unexpired_filenames(plex, days):
     items = [item for s in plex.library.sections() for item in s.all()]
 
