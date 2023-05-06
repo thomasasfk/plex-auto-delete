@@ -10,8 +10,10 @@ from dotenv import load_dotenv  # noqa
 from plexapi.server import PlexServer
 from plexapi.video import Movie
 from plexapi.video import Show
+
 load_dotenv()
 
+_LOG_FILE_NAME = 'plex_delete_events.log'
 _RU_TORRENT_DATA_DIR_PATH = '/media/sdp1/fizz/private/rtorrent/data/'
 _EXCLUDED_HASHES = {
     str.casefold(h) for h in [
@@ -21,13 +23,23 @@ _EXCLUDED_HASHES = {
 _EXCLUDED_FILENAMES = {
     str.casefold(fn) for fn in [
         # Add any filenames to exclude
-        'Surveillance Camera Man Surveillance Camera Man 1-8 mP5ZVPwP7bg 22.mp4', # noqa
+        'Surveillance Camera Man Surveillance Camera Man 1-8 mP5ZVPwP7bg 22.mp4',  # noqa
     ]
 }
 _DAYS_SINCE_TOUCHED = int(os.getenv('DAYS_SINCE_TOUCHED', '30'))
 _PLEX_URL = os.getenv('PLEX_URL')
 _PLEX_TOKEN = os.getenv('PLEX_TOKEN')
 _RU_TORRENT_RPC_URL = os.getenv('RU_TORRENT_RPC_URL')
+
+
+def get_current_utc_timestamp():
+    return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+
+
+def log_and_print(message):
+    print(message)
+    with open(_LOG_FILE_NAME, 'a', encoding='utf-8') as f:
+        f.write(f'[{get_current_utc_timestamp()} UTC] {message}\n')
 
 
 def _get_unexpired_filenames(plex, days):
@@ -73,7 +85,7 @@ def _filepath_set(base_path):
 
 def main() -> int:
     if not all([_PLEX_URL, _PLEX_TOKEN, _RU_TORRENT_RPC_URL]):
-        raise ValueError('Missing environment variable... check the script.')
+        raise ValueError('Missing an environment variable... check the script.')
 
     plex = PlexServer(_PLEX_URL, _PLEX_TOKEN)
     unexpired_fileset = _get_unexpired_filenames(plex, _DAYS_SINCE_TOUCHED)
@@ -109,7 +121,7 @@ def main() -> int:
                     os.remove(torrent_base_path)
                 elif os.path.isdir(torrent_base_path):
                     shutil.rmtree(torrent_base_path)
-                print(f'Removed torrent: {torrent_name}')
+                log_and_print(f'Removed torrent: {torrent_name}')
 
     ru_torrent_base_path = ru_torrent.directory.default()
     for root, _, files in os.walk(ru_torrent_base_path):
@@ -125,7 +137,7 @@ def main() -> int:
                 continue
 
             os.remove(filepath)
-            print(f'Removed by clean-up: {filename}')
+            log_and_print(f'Removed by clean-up ({_DAYS_SINCE_TOUCHED} days since last watched): {filename}')
 
     return 0
 
