@@ -15,10 +15,16 @@ load_dotenv()
 
 _LOG_FILE_NAME = 'plex_delete_events.log'
 _RU_TORRENT_DATA_DIR_PATH = '/media/sdp1/fizz/private/rtorrent/data/'
+_EXCLUDED_DIR_NAMES = {
+    f'/{str.casefold(fn)}/' for fn in [
+        # Add any folder names to exclude
+        'Baldurs.Gate.3-RUNE',  # baldurs balls
+    ]
+}
 _EXCLUDED_HASHES = {
     str.casefold(h) for h in [
         # Add any torrent hashes to exclude
-        "645903B8BA5E7FF466BEAC3E6467BFF91B671CB8",  # baldurs balls
+        '645903B8BA5E7FF466BEAC3E6467BFF91B671CB8',  # baldurs balls  #  noqa
     ]
 }
 _EXCLUDED_FILENAMES = {
@@ -177,6 +183,10 @@ def main() -> int:
             # we skip any full paths to files that haven't expired yet
             filepath = os.path.join(root, filename)
             if filepath in unexpired_filepath_set:
+                continue
+
+            # skip any where we exclude the folder specifically
+            if any(d in filepath for d in _EXCLUDED_DIR_NAMES):
                 continue
 
             # we remove the file, as it has expired
