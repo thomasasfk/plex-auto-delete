@@ -18,6 +18,7 @@ _RU_TORRENT_DATA_DIR_PATH = '/media/sdp1/fizz/private/rtorrent/data/'
 _EXCLUDED_HASHES = {
     str.casefold(h) for h in [
         # Add any torrent hashes to exclude
+        "645903B8BA5E7FF466BEAC3E6467BFF91B671CB8",  # baldurs balls
     ]
 }
 _EXCLUDED_FILENAMES = {
