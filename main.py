@@ -16,7 +16,7 @@ load_dotenv()
 _LOG_FILE_NAME = 'plex_delete_events.log'
 _RU_TORRENT_DATA_DIR_PATH = '/media/sdp1/fizz/private/rtorrent/data/'
 _EXCLUDED_DIR_NAMES = {
-    f"/{str.casefold(h)}/" for h in [
+    f'/{str.casefold(h)}/' for h in [
         # Add any folder names to exclude
         "Baldurs.Gate.3-RUNE",  # baldurs balls
     ]
@@ -24,7 +24,7 @@ _EXCLUDED_DIR_NAMES = {
 _EXCLUDED_HASHES = {
     str.casefold(h) for h in [
         # Add any torrent hashes to exclude
-        "645903B8BA5E7FF466BEAC3E6467BFF91B671CB8",  # baldurs balls  #  noqa
+        '645903B8BA5E7FF466BEAC3E6467BFF91B671CB8',  # baldurs balls  #  noqa
     ]
 }
 _EXCLUDED_FILENAMES = {
