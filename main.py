@@ -23,6 +23,7 @@ _EXCLUDED_HASHES = {
     str.casefold(h) for h in [
         # Add any torrent hashes to exclude
         '645903B8BA5E7FF466BEAC3E6467BFF91B671CB8',  # baldurs balls  #  noqa
+        '75DA9DE49416F0B0D2F899702F781814D0EC6CB6',
     ]
 }
 _EXCLUDED_FILENAMES = {
